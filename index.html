@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Bảng quản lý liên kết web chuẩn Microsoft Fluent UI 2 kết nối trực tiếp GET /api/webs." />
+  <title>WebLinks Directory — Bảng Liên Kết Web (/api/webs)</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <!-- Bỏ qua điều hướng để hỗ trợ bàn phím (WCAG AA) -->
+  <a class="skip-link" href="#main-content">Bỏ qua điều hướng đến bảng dữ liệu</a>
+
+  <div class="f-shell">
+    <!-- Fluent Top Navigation Header -->
+    <header class="f-header" role="banner">
+      <div class="f-header-brand">
+        <div class="f-header-logo" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="2" width="9" height="9" rx="1.5" fill="#0f6cbd"/>
+            <rect x="13" y="2" width="9" height="9" rx="1.5" fill="#115ea3"/>
+            <rect x="2" y="13" width="9" height="9" rx="1.5" fill="#2886de"/>
+            <rect x="13" y="13" width="9" height="9" rx="1.5" fill="#0f6cbd"/>
+          </svg>
+        </div>
+        <div class="f-header-text">
+          <span class="f-header-eyebrow">Microsoft Fluent UI 2 · DataGrid</span>
+          <h1 class="f-header-title">Danh Mục Liên Kết Web</h1>
+        </div>
+      </div>
+
+      <div class="f-header-actions">
+        <div class="f-endpoint-badge" title="Endpoint API đang kết nối">
+          <span class="f-method-tag">GET</span>
+          <span class="f-endpoint-path">/api/webs</span>
+        </div>
+        <button id="loadSampleButton" class="f-btn f-btn-secondary" type="button">
+          Dữ liệu mẫu API.md
+        </button>
+        <button id="refreshButton" class="f-btn f-btn-primary" type="button">
+          ↻ Làm mới API
+        </button>
+      </div>
+    </header>
+
+    <main id="main-content" class="f-main" role="main">
+      <!-- Thống kê Fluent Stat Cards -->
+      <section class="f-stats-grid" aria-label="Thống kê dữ liệu">
+        <article class="f-stat-card">
+          <span class="f-stat-title">Tổng số liên kết (Dòng)</span>
+          <span class="f-stat-number" id="linkCount">0</span>
+          <span class="f-stat-sub" id="filteredCountNote">1 dòng = 1 liên kết web</span>
+        </article>
+
+        <article class="f-stat-card">
+          <span class="f-stat-title">Thẻ nhóm (Web Cards)</span>
+          <span class="f-stat-number" id="cardCount">0</span>
+          <span class="f-stat-sub">Nhóm thẻ từ /api/webs</span>
+        </article>
+
+        <article class="f-stat-card">
+          <span class="f-stat-title">Nhãn chủ đề (Tags)</span>
+          <span class="f-stat-number" id="tagCount">0</span>
+          <span class="f-stat-sub">Tags phân loại duy nhất</span>
+        </article>
+
+        <article class="f-stat-card" id="connectionCard">
+          <span class="f-stat-title">Trạng thái kết nối</span>
+          <span class="f-stat-number f-stat-number-sm" id="connectionText">Đang gọi API…</span>
+          <span class="f-stat-sub" id="updatedNote">Đang gửi yêu cầu GET /api/webs</span>
+        </article>
+      </section>
+
+      <!-- Fluent InfoBar / Banner Thông báo & Hướng dẫn CORS (Cách 2) -->
+      <section id="noticeArea" class="f-notice-container" aria-live="polite"></section>
+
+      <!-- Bảng dữ liệu DataGrid & Bộ lọc -->
+      <section class="f-card f-datagrid-card" aria-labelledby="tableHeading">
+        <div class="f-card-header">
+          <div>
+            <h2 id="tableHeading" class="f-card-title">Bảng Liên Kết Web (Option A — Flattened DataGrid)</h2>
+            <p class="f-card-desc">
+              Mỗi hàng hiển thị một liên kết trong <code>links[]</code> kèm thông tin nhóm <code>WebCard</code> tương ứng.
+            </p>
+          </div>
+          <div class="f-badge f-badge-brand" id="sourceBadge">Nguồn: Live API</div>
+        </div>
+
+        <!-- Fluent Toolbar & Filters -->
+        <form class="f-toolbar" id="filterForm" role="search" aria-label="Bộ lọc danh sách liên kết">
+          <div class="f-field f-field-search">
+            <label class="f-label" for="searchInput">Tìm kiếm từ khóa</label>
+            <div class="f-input-wrapper">
+              <input
+                id="searchInput"
+                class="f-input"
+                type="search"
+                placeholder="Tìm tiêu đề link, URL, nhóm, mô tả, tag…"
+                autocomplete="off"
+              />
+            </div>
+          </div>
+
+          <div class="f-field">
+            <label class="f-label" for="colorFilter">Màu nhóm (Color)</label>
+            <select id="colorFilter" class="f-select">
+              <option value="ALL">Tất cả màu</option>
+            </select>
+          </div>
+
+          <div class="f-field">
+            <label class="f-label" for="tagFilter">Nhãn (Tag)</label>
+            <select id="tagFilter" class="f-select">
+              <option value="ALL">Tất cả tags</option>
+            </select>
+          </div>
+
+          <div class="f-field">
+            <label class="f-label" for="pageSizeSelect">Phân trang (Số mục)</label>
+            <select id="pageSizeSelect" class="f-select">
+              <option value="12">12 mục / trang</option>
+              <option value="36">36 mục / trang</option>
+              <option value="120">120 mục / trang</option>
+              <option value="ALL">Tất cả (All)</option>
+            </select>
+          </div>
+
+          <div class="f-field f-field-btn">
+            <button id="clearFiltersButton" class="f-btn f-btn-subtle" type="button">
+              Xóa bộ lọc
+            </button>
+          </div>
+        </form>
+
+        <!-- DataGrid Table -->
+        <div class="f-table-container" role="region" aria-labelledby="tableHeading" tabindex="0">
+          <table class="f-table" id="webLinksTable">
+            <caption class="sr-only">Danh sách liên kết web từ endpoint GET /api/webs</caption>
+            <thead>
+              <tr>
+                <th scope="col" class="th-index">#</th>
+                <th scope="col" class="th-group">Nhóm (Web Card)</th>
+                <th scope="col" class="th-thumb">Thumbnail</th>
+                <th scope="col" class="th-title">Tiêu đề Link</th>
+                <th scope="col" class="th-url">URL</th>
+                <th scope="col" class="th-desc">Mô tả</th>
+                <th scope="col" class="th-tags">Tags</th>
+                <th scope="col" class="th-date">Ngày tạo</th>
+              </tr>
+            </thead>
+            <tbody id="webTableBody">
+              <tr class="f-state-row">
+                <td colspan="8">
+                  <div class="f-state-box">
+                    <div class="f-spinner" aria-hidden="true"></div>
+                    <p class="f-state-title">Đang tải dữ liệu từ GET /api/webs…</p>
+                    <p class="f-state-sub">Vui lòng chờ phản hồi từ máy chủ Render.</p>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Fluent Pagination Bar -->
+        <footer class="f-pagination-bar" aria-label="Điều khiển phân trang">
+          <div class="f-pagination-info">
+            <span id="paginationSummary">Hiển thị 0 - 0 trong tổng số 0 liên kết</span>
+          </div>
+
+          <div class="f-pagination-nav">
+            <button
+              id="firstPageBtn"
+              class="f-btn f-btn-page"
+              type="button"
+              title="Về trang đầu tiên"
+              aria-label="Về trang đầu tiên"
+            >
+              «
+            </button>
+            <button
+              id="prevPageBtn"
+              class="f-btn f-btn-page"
+              type="button"
+              title="Về trang trước"
+              aria-label="Về trang trước"
+            >
+              ‹
+            </button>
+            <span class="f-page-indicator" id="pageIndicator" aria-live="polite">
+              Trang 1 / 1
+            </span>
+            <button
+              id="nextPageBtn"
+              class="f-btn f-btn-page"
+              type="button"
+              title="Sang trang sau"
+              aria-label="Sang trang sau"
+            >
+              ›
+            </button>
+            <button
+              id="lastPageBtn"
+              class="f-btn f-btn-page"
+              type="button"
+              title="Đến trang cuối cùng"
+              aria-label="Đến trang cuối cùng"
+            >
+              »
+            </button>
+          </div>
+        </footer>
+      </section>
+    </main>
+
+    <!-- Fluent Footer -->
+    <footer class="f-footer" role="contentinfo">
+      <p class="f-footer-text">
+        Kết nối trực tiếp <code>GET https://ap002-google-tasks-clone.onrender.com/api/webs</code> · Chuẩn giao diện <strong>Microsoft Fluent UI 2</strong> · Cấu trúc dữ liệu theo <strong>API.md (Mục 3.4)</strong>.
+      </p>
+    </footer>
+  </div>
+</body>
+</html>
