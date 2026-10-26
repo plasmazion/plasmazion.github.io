@@ -25,199 +25,304 @@
           </svg>
         </div>
         <div class="f-header-text">
-          <span class="f-header-eyebrow">Microsoft Fluent UI 2 · DataGrid</span>
+          <span class="f-header-eyebrow">MY LINK</span>
           <h1 class="f-header-title">Danh Mục Liên Kết Web</h1>
         </div>
       </div>
 
       <div class="f-header-actions">
-        <div class="f-endpoint-badge" title="Endpoint API đang kết nối">
-          <span class="f-method-tag">GET</span>
-          <span class="f-endpoint-path">/api/webs</span>
-        </div>
-        <button id="loadSampleButton" class="f-btn f-btn-secondary" type="button">
-          Dữ liệu mẫu API.md
-        </button>
+
         <button id="refreshButton" class="f-btn f-btn-primary" type="button">
           ↻ Làm mới API
         </button>
       </div>
     </header>
 
+    <!-- Top Tabs Navigation (Microsoft Fluent / Fabric Theme Designer) -->
+    <nav class="f-tabs-nav" aria-label="Menu các tab ứng dụng">
+      <div class="f-tablist" role="tablist" aria-label="App Tabs">
+        <button
+          type="button"
+          role="tab"
+          id="tab-ms365"
+          class="f-tab active"
+          aria-selected="true"
+          aria-controls="panel-ms365"
+          tabindex="0"
+        >
+          MS365 Apps
+        </button>
+        <button
+          type="button"
+          role="tab"
+          id="tab-google"
+          class="f-tab"
+          aria-selected="false"
+          aria-controls="panel-google"
+          tabindex="-1"
+        >
+          Google Apps
+        </button>
+        <button
+          type="button"
+          role="tab"
+          id="tab-tools"
+          class="f-tab"
+          aria-selected="false"
+          aria-controls="panel-tools"
+          tabindex="-1"
+        >
+          Check Tools
+        </button>
+      </div>
+    </nav>
+
     <main id="main-content" class="f-main" role="main">
-      <!-- Thống kê Fluent Stat Cards -->
-      <section class="f-stats-grid" aria-label="Thống kê dữ liệu">
-        <article class="f-stat-card">
-          <span class="f-stat-title">Tổng số liên kết (Dòng)</span>
-          <span class="f-stat-number" id="linkCount">0</span>
-          <span class="f-stat-sub" id="filteredCountNote">1 dòng = 1 liên kết web</span>
-        </article>
-
-        <article class="f-stat-card">
-          <span class="f-stat-title">Thẻ nhóm (Web Cards)</span>
-          <span class="f-stat-number" id="cardCount">0</span>
-          <span class="f-stat-sub">Nhóm thẻ từ /api/webs</span>
-        </article>
-
-        <article class="f-stat-card">
-          <span class="f-stat-title">Nhãn chủ đề (Tags)</span>
-          <span class="f-stat-number" id="tagCount">0</span>
-          <span class="f-stat-sub">Tags phân loại duy nhất</span>
-        </article>
-
-        <article class="f-stat-card" id="connectionCard">
-          <span class="f-stat-title">Trạng thái kết nối</span>
-          <span class="f-stat-number f-stat-number-sm" id="connectionText">Đang gọi API…</span>
-          <span class="f-stat-sub" id="updatedNote">Đang gửi yêu cầu GET /api/webs</span>
-        </article>
-      </section>
-
-      <!-- Fluent InfoBar / Banner Thông báo & Hướng dẫn CORS (Cách 2) -->
-      <section id="noticeArea" class="f-notice-container" aria-live="polite"></section>
-
-      <!-- Bảng dữ liệu DataGrid & Bộ lọc -->
-      <section class="f-card f-datagrid-card" aria-labelledby="tableHeading">
-        <div class="f-card-header">
-          <div>
-            <h2 id="tableHeading" class="f-card-title">Bảng Liên Kết Web (Option A — Flattened DataGrid)</h2>
-            <p class="f-card-desc">
-              Mỗi hàng hiển thị một liên kết trong <code>links[]</code> kèm thông tin nhóm <code>WebCard</code> tương ứng.
-            </p>
+      <!-- TAB 1: MS365 Apps -->
+      <div id="panel-ms365" class="f-tabpanel" role="tabpanel" aria-labelledby="tab-ms365">
+        <section class="f-card f-slot-details-card" aria-label="Danh sách ứng dụng MS365">
+          <div class="f-palette-strip" aria-label="Danh sách nút ứng dụng MS365">
+            <button type="button" class="f-btn f-btn-empty" aria-label="FAST" title="FAST"><a href="http://10.0.0.252" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer"> FAST </a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="FAST" title="FAST"><a href="http://10.0.0.252" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer"> FAST </a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="FAST" title="FAST"><a href="http://10.0.0.252" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer"> FAST </a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="FAST" title="FAST"><a href="http://10.0.0.252" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer"> FAST </a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="FAST" title="FAST"><a href="http://10.0.0.252" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer"> FAST </a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="FAST" title="FAST"><a href="http://10.0.0.252" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer"> FAST </a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="FAST" title="FAST"><a href="http://10.0.0.252" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer"> FAST </a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="FAST" title="FAST"><a href="http://10.0.0.252" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer"> FAST </a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="FAST" title="FAST"><a href="http://10.0.0.252" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer"> FAST </a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="FAST" title="FAST"><a href="http://10.0.0.252" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer"> FAST </a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="FAST" title="FAST"><a href="http://10.0.0.252" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer"> FAST </a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="FAST" title="FAST"><a href="http://10.0.0.252" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer"> FAST </a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="FAST" title="FAST"><a href="http://10.0.0.252" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer"> FAST </a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="FAST" title="FAST"><a href="http://10.0.0.252" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer"> FAST </a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="FAST" title="FAST"><a href="http://10.0.0.252" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer"> FAST </a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="FAST" title="FAST"><a href="http://10.0.0.252" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer"> FAST </a></button>
           </div>
-          <div class="f-badge f-badge-brand" id="sourceBadge">Nguồn: Live API</div>
-        </div>
+        </section>
+      </div>
 
-        <!-- Fluent Toolbar & Filters -->
-        <form class="f-toolbar" id="filterForm" role="search" aria-label="Bộ lọc danh sách liên kết">
-          <div class="f-field f-field-search">
-            <label class="f-label" for="searchInput">Tìm kiếm từ khóa</label>
-            <div class="f-input-wrapper">
-              <input
-                id="searchInput"
-                class="f-input"
-                type="search"
-                placeholder="Tìm tiêu đề link, URL, nhóm, mô tả, tag…"
-                autocomplete="off"
-              />
+      <!-- TAB 2: Google Apps -->
+      <div id="panel-google" class="f-tabpanel" role="tabpanel" aria-labelledby="tab-google" hidden>
+        <section class="f-card f-slot-details-card" aria-label="Danh sách ứng dụng Google">
+          <div class="f-palette-strip" aria-label="Danh sách nút ứng dụng Google">
+            <button type="button" class="f-btn f-btn-empty" aria-label="Gmail" title="Gmail"><a href="https://mail.google.com" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer">Gmail</a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="Drive" title="Drive"><a href="https://drive.google.com" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer">Drive</a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="Docs" title="Docs"><a href="https://docs.google.com" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer">Docs</a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="Sheets" title="Sheets"><a href="https://sheets.google.com" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer">Sheets</a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="Meet" title="Meet"><a href="https://meet.google.com" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer">Meet</a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="Calendar" title="Calendar"><a href="https://calendar.google.com" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer">Calendar</a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="Keep" title="Keep"><a href="https://keep.google.com" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer">Keep</a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="Chat" title="Chat"><a href="https://chat.google.com" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer">Chat</a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="Slides" title="Slides"><a href="https://slides.google.com" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer">Slides</a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="Forms" title="Forms"><a href="https://forms.google.com" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer">Forms</a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="Contacts" title="Contacts"><a href="https://contacts.google.com" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer">Contacts</a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="Maps" title="Maps"><a href="https://maps.google.com" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer">Maps</a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="Photos" title="Photos"><a href="https://photos.google.com" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer">Photos</a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="Translate" title="Translate"><a href="https://translate.google.com" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer">Translate</a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="Cloud" title="Cloud"><a href="https://console.cloud.google.com" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer">Cloud</a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="Admin" title="Admin"><a href="https://admin.google.com" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer">Admin</a></button>
+          </div>
+        </section>
+      </div>
+
+      <!-- TAB 3: Check Tools -->
+      <div id="panel-tools" class="f-tabpanel" role="tabpanel" aria-labelledby="tab-tools" hidden>
+        <section class="f-card f-slot-details-card" aria-label="Danh sách công cụ kiểm tra">
+          <div class="f-palette-strip" aria-label="Danh sách nút công cụ kiểm tra">
+            <button type="button" class="f-btn f-btn-empty" aria-label="Ping" title="Ping"><a href="https://ping.eu" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer">Ping</a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="DNS Check" title="DNS Check"><a href="https://dnschecker.org" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer">DNS Check</a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="Speedtest" title="Speedtest"><a href="https://www.speedtest.net" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer">Speedtest</a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="IP Lookup" title="IP Lookup"><a href="https://whatismyipaddress.com" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer">IP Lookup</a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="SSL Check" title="SSL Check"><a href="https://www.sslshopper.com/ssl-checker.html" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer">SSL Check</a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="Port Check" title="Port Check"><a href="https://canyouseeme.org" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer">Port Check</a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="Whois" title="Whois"><a href="https://whois.domaintools.com" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer">Whois</a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="VirusTotal" title="VirusTotal"><a href="https://www.virustotal.com" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer">VirusTotal</a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="MX Toolbox" title="MX Toolbox"><a href="https://mxtoolbox.com" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer">MX Toolbox</a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="HTTP Status" title="HTTP Status"><a href="https://httpstatus.io" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer">HTTP Status</a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="Down For All" title="Down For All"><a href="https://downforeveryoneorjustme.com" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer">Down For All</a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="Blacklist" title="Blacklist"><a href="https://mxtoolbox.com/blacklists.aspx" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer">Blacklist</a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="BGP View" title="BGP View"><a href="https://bgpview.io" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer">BGP View</a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="Fast.com" title="Fast.com"><a href="https://fast.com" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer">Fast.com</a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="IntoDNS" title="IntoDNS"><a href="https://intodns.com" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer">IntoDNS</a></button>
+            <button type="button" class="f-btn f-btn-empty" aria-label="URLVoid" title="URLVoid"><a href="https://www.urlvoid.com" class="btn btn-info" role="button" target="_blank" rel="noopener noreferrer">URLVoid</a></button>
+          </div>
+        </section>
+      </div>
+
+        <!-- Thống kê Fluent Stat Cards -->
+        <section class="f-stats-grid" aria-label="Thống kê dữ liệu">
+          <article class="f-stat-card">
+            <span class="f-stat-title">Tổng số liên kết (Dòng)</span>
+            <span class="f-stat-number" id="linkCount">0</span>
+            <span class="f-stat-sub" id="filteredCountNote">1 dòng = 1 liên kết web</span>
+          </article>
+
+          <article class="f-stat-card">
+            <span class="f-stat-title">Thẻ nhóm (Web Cards)</span>
+            <span class="f-stat-number" id="cardCount">0</span>
+            <span class="f-stat-sub">Nhóm thẻ từ /api/webs</span>
+          </article>
+
+          <article class="f-stat-card">
+            <span class="f-stat-title">Nhãn chủ đề (Tags)</span>
+            <span class="f-stat-number" id="tagCount">0</span>
+            <span class="f-stat-sub">Tags phân loại duy nhất</span>
+          </article>
+
+          <article class="f-stat-card" id="connectionCard">
+            <span class="f-stat-title">Trạng thái kết nối</span>
+            <span class="f-stat-number f-stat-number-sm" id="connectionText">Đang gọi API…</span>
+            <span class="f-stat-sub" id="updatedNote">Đang gửi yêu cầu GET /api/webs</span>
+          </article>
+        </section>
+
+        <!-- Fluent InfoBar / Banner Thông báo & Hướng dẫn CORS (Cách 2) -->
+        <section id="noticeArea" class="f-notice-container" aria-live="polite"></section>
+
+        <!-- Bảng dữ liệu DataGrid & Bộ lọc -->
+        <section class="f-card f-datagrid-card" aria-labelledby="tableHeading">
+          <div class="f-card-header">
+            <div>
+              <h2 id="tableHeading" class="f-card-title">Bảng Liên Kết Web (DataGrid)</h2>
+              <p class="f-card-desc">
+                Mỗi hàng hiển thị một liên kết trong <code>links[]</code> kèm thông tin nhóm <code>WebCard</code> tương ứng.
+              </p>
             </div>
+            <div class="f-badge f-badge-brand" id="sourceBadge">Nguồn: Live GET /api/webs</div>
           </div>
 
-          <div class="f-field">
-            <label class="f-label" for="colorFilter">Màu nhóm (Color)</label>
-            <select id="colorFilter" class="f-select">
-              <option value="ALL">Tất cả màu</option>
-            </select>
+          <!-- Fluent Toolbar & Filters -->
+          <form class="f-toolbar" id="filterForm" role="search" aria-label="Bộ lọc danh sách liên kết">
+            <div class="f-field f-field-search">
+              <label class="f-label" for="searchInput">Tìm kiếm từ khóa</label>
+              <div class="f-input-wrapper">
+                <input
+                  id="searchInput"
+                  class="f-input"
+                  type="search"
+                  placeholder="Tìm tiêu đề link, URL, nhóm, mô tả, tag…"
+                  autocomplete="off"
+                />
+              </div>
+            </div>
+
+            <div class="f-field">
+              <label class="f-label" for="colorFilter">Màu nhóm (Color)</label>
+              <select id="colorFilter" class="f-select">
+                <option value="ALL">Tất cả màu</option>
+              </select>
+            </div>
+
+            <div class="f-field">
+              <label class="f-label" for="tagFilter">Nhãn (Tag)</label>
+              <select id="tagFilter" class="f-select">
+                <option value="ALL">Tất cả tags</option>
+              </select>
+            </div>
+
+            <div class="f-field">
+              <label class="f-label" for="pageSizeSelect">Phân trang (Số mục)</label>
+              <select id="pageSizeSelect" class="f-select">
+                <option value="12">12 mục / trang</option>
+                <option value="36">36 mục / trang</option>
+                <option value="120">120 mục / trang</option>
+                <option value="ALL">Tất cả (All)</option>
+              </select>
+            </div>
+
+            <div class="f-field f-field-btn">
+              <button id="clearFiltersButton" class="f-btn f-btn-subtle" type="button">
+                Xóa bộ lọc
+              </button>
+            </div>
+          </form>
+
+          <!-- DataGrid Table -->
+          <div class="f-table-container" role="region" aria-labelledby="tableHeading" tabindex="0">
+            <table class="f-table" id="webLinksTable">
+              <caption class="sr-only">Danh sách liên kết web từ endpoint GET /api/webs</caption>
+              <thead>
+                <tr>
+                  <th scope="col" class="th-index">#</th>
+                  <th scope="col" class="th-group">Nhóm (Web Card)</th>
+                  <th scope="col" class="th-thumb">Thumbnail</th>
+                  <th scope="col" class="th-title">Tiêu đề Link</th>
+                  <th scope="col" class="th-url">URL</th>
+                  <th scope="col" class="th-desc">Mô tả</th>
+                  <th scope="col" class="th-tags">Tags</th>
+                  <th scope="col" class="th-date">Ngày tạo</th>
+                </tr>
+              </thead>
+              <tbody id="webTableBody">
+                <tr class="f-state-row">
+                  <td colspan="8">
+                    <div class="f-state-box">
+                      <div class="f-spinner" aria-hidden="true"></div>
+                      <p class="f-state-title">Đang tải dữ liệu từ GET /api/webs…</p>
+                      <p class="f-state-sub">Vui lòng chờ phản hồi từ máy chủ Render.</p>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
 
-          <div class="f-field">
-            <label class="f-label" for="tagFilter">Nhãn (Tag)</label>
-            <select id="tagFilter" class="f-select">
-              <option value="ALL">Tất cả tags</option>
-            </select>
-          </div>
+          <!-- Fluent Pagination Bar -->
+          <footer class="f-pagination-bar" aria-label="Điều khiển phân trang">
+            <div class="f-pagination-info">
+              <span id="paginationSummary">Hiển thị 0 - 0 trong tổng số 0 liên kết</span>
+            </div>
 
-          <div class="f-field">
-            <label class="f-label" for="pageSizeSelect">Phân trang (Số mục)</label>
-            <select id="pageSizeSelect" class="f-select">
-              <option value="12">12 mục / trang</option>
-              <option value="36">36 mục / trang</option>
-              <option value="120">120 mục / trang</option>
-              <option value="ALL">Tất cả (All)</option>
-            </select>
-          </div>
-
-          <div class="f-field f-field-btn">
-            <button id="clearFiltersButton" class="f-btn f-btn-subtle" type="button">
-              Xóa bộ lọc
-            </button>
-          </div>
-        </form>
-
-        <!-- DataGrid Table -->
-        <div class="f-table-container" role="region" aria-labelledby="tableHeading" tabindex="0">
-          <table class="f-table" id="webLinksTable">
-            <caption class="sr-only">Danh sách liên kết web từ endpoint GET /api/webs</caption>
-            <thead>
-              <tr>
-                <th scope="col" class="th-index">#</th>
-                <th scope="col" class="th-group">Nhóm (Web Card)</th>
-                <th scope="col" class="th-thumb">Thumbnail</th>
-                <th scope="col" class="th-title">Tiêu đề Link</th>
-                <th scope="col" class="th-url">URL</th>
-                <th scope="col" class="th-desc">Mô tả</th>
-                <th scope="col" class="th-tags">Tags</th>
-                <th scope="col" class="th-date">Ngày tạo</th>
-              </tr>
-            </thead>
-            <tbody id="webTableBody">
-              <tr class="f-state-row">
-                <td colspan="8">
-                  <div class="f-state-box">
-                    <div class="f-spinner" aria-hidden="true"></div>
-                    <p class="f-state-title">Đang tải dữ liệu từ GET /api/webs…</p>
-                    <p class="f-state-sub">Vui lòng chờ phản hồi từ máy chủ Render.</p>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <!-- Fluent Pagination Bar -->
-        <footer class="f-pagination-bar" aria-label="Điều khiển phân trang">
-          <div class="f-pagination-info">
-            <span id="paginationSummary">Hiển thị 0 - 0 trong tổng số 0 liên kết</span>
-          </div>
-
-          <div class="f-pagination-nav">
-            <button
-              id="firstPageBtn"
-              class="f-btn f-btn-page"
-              type="button"
-              title="Về trang đầu tiên"
-              aria-label="Về trang đầu tiên"
-            >
-              «
-            </button>
-            <button
-              id="prevPageBtn"
-              class="f-btn f-btn-page"
-              type="button"
-              title="Về trang trước"
-              aria-label="Về trang trước"
-            >
-              ‹
-            </button>
-            <span class="f-page-indicator" id="pageIndicator" aria-live="polite">
-              Trang 1 / 1
-            </span>
-            <button
-              id="nextPageBtn"
-              class="f-btn f-btn-page"
-              type="button"
-              title="Sang trang sau"
-              aria-label="Sang trang sau"
-            >
-              ›
-            </button>
-            <button
-              id="lastPageBtn"
-              class="f-btn f-btn-page"
-              type="button"
-              title="Đến trang cuối cùng"
-              aria-label="Đến trang cuối cùng"
-            >
-              »
-            </button>
-          </div>
-        </footer>
-      </section>
+            <div class="f-pagination-nav">
+              <button
+                id="firstPageBtn"
+                class="f-btn f-btn-page"
+                type="button"
+                title="Về trang đầu tiên"
+                aria-label="Về trang đầu tiên"
+              >
+                «
+              </button>
+              <button
+                id="prevPageBtn"
+                class="f-btn f-btn-page"
+                type="button"
+                title="Về trang trước"
+                aria-label="Về trang trước"
+              >
+                ‹
+              </button>
+              <span class="f-page-indicator" id="pageIndicator" aria-live="polite">
+                Trang 1 / 1
+              </span>
+              <button
+                id="nextPageBtn"
+                class="f-btn f-btn-page"
+                type="button"
+                title="Sang trang sau"
+                aria-label="Sang trang sau"
+              >
+                ›
+              </button>
+              <button
+                id="lastPageBtn"
+                class="f-btn f-btn-page"
+                type="button"
+                title="Đến trang cuối cùng"
+                aria-label="Đến trang cuối cùng"
+              >
+                »
+              </button>
+            </div>
+          </footer>
+        </section>
     </main>
 
     <!-- Fluent Footer -->
     <footer class="f-footer" role="contentinfo">
       <p class="f-footer-text">
-        Kết nối trực tiếp <code>GET https://ap002-google-tasks-clone.onrender.com/api/webs</code> · Chuẩn giao diện <strong>Microsoft Fluent UI 2</strong> · Cấu trúc dữ liệu theo <strong>API.md (Mục 3.4)</strong>.
+        Kết nối trực tiếp <code>GET https://ap002-google-tasks-clone.onrender.com/api/webs</code> · Chuẩn giao diện <strong>Microsoft Fluent UI 2</strong>.
       </p>
     </footer>
   </div>

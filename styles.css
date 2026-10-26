@@ -317,6 +317,360 @@ body {
   background-color: var(--f-bg-pressed);
 }
 
+.f-btn-empty {
+  position: relative;
+  min-height: 44px;
+  min-width: 88px;
+  padding: 0;
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+  background-color: var(--f-bg-surface);
+  border: 1px solid var(--f-border);
+  border-radius: var(--f-radius-sm);
+  cursor: pointer;
+  overflow: hidden;
+  font-family: var(--f-font-sans);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--f-text-primary);
+  text-align: center;
+  transition: background-color 0.12s ease-in-out, border-color 0.12s ease-in-out, box-shadow 0.12s ease-in-out;
+}
+
+.f-btn-empty:hover {
+  background-color: var(--f-bg-hover);
+  border-color: var(--f-border-active);
+  box-shadow: var(--f-shadow-2);
+}
+
+.f-btn-empty:focus-visible {
+  outline: 2px solid var(--f-brand);
+  outline-offset: 1px;
+}
+
+/* Inner link fills entire button for seamless clicking */
+.f-btn-empty > a,
+.f-btn-empty .btn,
+.f-btn-empty .btn-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  min-height: 44px;
+  padding: 0.5rem 0.75rem;
+  text-decoration: none;
+  color: var(--f-text-primary);
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: inherit;
+  box-sizing: border-box;
+  background: transparent;
+  border: none;
+  transition: color 0.12s ease-in-out, background-color 0.12s ease-in-out;
+}
+
+.f-btn-empty > a:hover,
+.f-btn-empty .btn:hover,
+.f-btn-empty .btn-info:hover {
+  text-decoration: none;
+  color: var(--f-brand);
+  background-color: var(--f-brand-tint, rgba(15, 108, 189, 0.08));
+}
+
+.f-btn-empty > a:focus-visible,
+.f-btn-empty .btn:focus-visible,
+.f-btn-empty .btn-info:focus-visible {
+  outline: 2px solid var(--f-brand);
+  outline-offset: -2px;
+}
+
+/* ==========================================================================
+   Fluent Pivot / Top Tabs Navigation
+   ========================================================================== */
+
+.f-tabs-nav {
+  margin-bottom: 1.25rem;
+  background-color: var(--f-bg-surface);
+  border: 1px solid var(--f-border-subtle);
+  border-radius: var(--f-radius-md);
+  box-shadow: var(--f-shadow-2);
+  padding: 0 1rem;
+}
+
+.f-tablist {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.f-tablist::-webkit-scrollbar {
+  display: none;
+}
+
+.f-tab {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0.75rem 1.25rem;
+  background: transparent;
+  border: none;
+  font-family: var(--f-font-sans);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--f-text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.15s ease, background-color 0.15s ease;
+  outline: none;
+}
+
+.f-tab:hover {
+  color: var(--f-text-primary);
+  background-color: var(--f-bg-hover);
+}
+
+.f-tab:focus-visible {
+  outline: 2px solid var(--f-brand);
+  outline-offset: -2px;
+}
+
+.f-tab.active {
+  color: var(--f-brand);
+  font-weight: 700;
+}
+
+.f-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: #0f6cbd;
+  border-radius: 2px 2px 0 0;
+}
+
+/* Tab Panels */
+.f-tabpanel {
+  display: block;
+}
+
+.f-tabpanel[hidden] {
+  display: none !important;
+}
+
+/* ==========================================================================
+   Tab Toolbar (Buttons để trống)
+   ========================================================================== */
+
+.f-tab-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  padding: 0.75rem 1rem;
+  background-color: var(--f-bg-surface);
+  border: 1px solid var(--f-border-subtle);
+  border-radius: var(--f-radius-md);
+  box-shadow: var(--f-shadow-2);
+}
+
+/* ==========================================================================
+   Fabric Palette Slot Details Card
+   ========================================================================== */
+
+.f-slot-details-card {
+  margin-bottom: 1.25rem;
+  padding: 1.25rem 1.5rem;
+}
+
+.f-slot-details-header {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.f-slot-swatch-main {
+  width: 64px;
+  height: 64px;
+  border-radius: var(--f-radius-md);
+  border: 1px solid var(--f-border);
+  box-shadow: var(--f-shadow-4);
+  flex-shrink: 0;
+}
+
+.f-slot-details-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.f-slot-tag {
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  color: var(--f-brand);
+}
+
+.f-slot-name {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--f-text-primary);
+}
+
+.f-slot-hex code {
+  font-family: var(--f-font-mono);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--f-text-primary);
+  background-color: var(--f-bg-subtle);
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--f-radius-sm);
+  border: 1px solid var(--f-border-subtle);
+}
+
+.f-slot-desc {
+  margin: 0.25rem 0 0;
+  font-size: 0.8125rem;
+  color: var(--f-text-secondary);
+}
+
+.f-palette-strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--f-border-divider);
+}
+
+.f-slot-details-card .f-palette-strip {
+  padding-top: 0;
+  border-top: none;
+}
+
+.f-palette-chip {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.5rem;
+  background-color: var(--f-bg-subtle);
+  border: 1px solid var(--f-border-subtle);
+  border-radius: var(--f-radius-sm);
+  transition: transform 0.12s ease;
+}
+
+.f-palette-chip:hover {
+  transform: translateY(-1px);
+}
+
+.f-palette-chip.active-slot {
+  border-color: var(--f-brand);
+  background-color: var(--f-brand-tint);
+  box-shadow: 0 0 0 1px var(--f-brand);
+}
+
+.f-chip-color {
+  display: block;
+  width: 100%;
+  height: 24px;
+  border-radius: 2px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.f-chip-label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--f-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.f-chip-val {
+  font-family: var(--f-font-mono);
+  font-size: 0.6875rem;
+  color: var(--f-text-secondary);
+}
+
+/* ==========================================================================
+   Semantic Slots Section (Tab 2)
+   ========================================================================== */
+
+.f-semantic-section {
+  padding: 1.5rem;
+}
+
+.f-semantic-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.f-semantic-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.875rem;
+  padding: 1rem;
+  background-color: var(--f-bg-subtle);
+  border: 1px solid var(--f-border-subtle);
+  border-radius: var(--f-radius-md);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.f-semantic-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--f-shadow-4);
+  border-color: var(--f-border);
+}
+
+.f-semantic-swatch {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--f-radius-sm);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: var(--f-shadow-2);
+  flex-shrink: 0;
+}
+
+.f-semantic-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.f-semantic-name {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--f-text-primary);
+}
+
+.f-semantic-info code {
+  font-family: var(--f-font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--f-brand);
+}
+
+.f-semantic-desc {
+  margin: 0.25rem 0 0;
+  font-size: 0.75rem;
+  color: var(--f-text-secondary);
+  line-height: 1.35;
+}
+
 /* ==========================================================================
    Stats Grid (Fluent Cards)
    ========================================================================== */
@@ -784,12 +1138,6 @@ body {
   background-color: var(--f-brand-tint);
   color: var(--f-brand);
   border-color: var(--f-brand-border);
-}
-
-.f-badge-sample {
-  background-color: var(--f-status-warn-bg);
-  color: var(--f-status-warn-fg);
-  border-color: var(--f-status-warn-border);
 }
 
 /* ==========================================================================

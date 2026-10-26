@@ -1,349 +1,11 @@
 /**
  * WebLinks Directory — Fluent UI 2 DataGrid & API Connector
  * Kết nối GET /api/webs (Cách 2) kèm Hướng dẫn CORS & Phân trang 12, 36, 120, ALL.
- * Tuân thủ quy tắc STRICT PURPLE BAN (không dùng purple/indigo).
+ * Tuân thủ quy tắc STRICT PURPLE BAN (không dùng purple/violet/indigo).
  */
 
 const API_BASE = 'https://ap002-google-tasks-clone.onrender.com';
 const WEBS_ENDPOINT = '/api/webs';
-
-/**
- * Bộ dữ liệu mẫu chuẩn theo tài liệu API.md (Mục 3.4)
- * Bao gồm 12 WebCards đa dạng với 38 liên kết con để người dùng có thể
- * trải nghiệm ngay lập tức các tùy chọn phân trang: 12, 36, 120, Tất cả.
- */
-const SAMPLE_WEBS = [
-  {
-    id: 'web-frontend-01',
-    title: 'Frontend Frameworks & UI',
-    tags: ['frontend', 'react', 'nextjs', 'fluent'],
-    color: 'blue',
-    createdAt: 1740000000000,
-    links: [
-      {
-        title: 'Next.js Documentation',
-        url: 'https://nextjs.org/docs',
-        description: 'Tài liệu hướng dẫn App Router, Server Actions, SSR và Streaming UI.',
-        thumbnail: 'https://nextjs.org/og.png'
-      },
-      {
-        title: 'React Official Portal',
-        url: 'https://react.dev',
-        description: 'Trang chủ React 19 với hooks, server components và interactive tutorials.',
-        thumbnail: ''
-      },
-      {
-        title: 'Microsoft Fluent UI 2',
-        url: 'https://fluent2.microsoft.design',
-        description: 'Hệ thống thiết kế Fluent 2 cho web, Microsoft Teams và Windows.',
-        thumbnail: ''
-      },
-      {
-        title: 'Tailwind CSS Docs',
-        url: 'https://tailwindcss.com/docs',
-        description: 'Hệ thống utility CSS tốc độ cao xây dựng giao diện hiện đại không bloatware.',
-        thumbnail: ''
-      }
-    ]
-  },
-  {
-    id: 'web-backend-02',
-    title: 'Backend, Database & Cloud',
-    tags: ['backend', 'mongodb', 'nodejs', 'api'],
-    color: 'emerald',
-    createdAt: 1740086400000,
-    links: [
-      {
-        title: 'MongoDB Atlas Database',
-        url: 'https://www.mongodb.com/docs/atlas/',
-        description: 'Vận hành cụm cơ sở dữ liệu phân tán đám mây và tối ưu chỉ mục indexing.',
-        thumbnail: ''
-      },
-      {
-        title: 'Node.js LTS Documentation',
-        url: 'https://nodejs.org/en/docs',
-        description: 'Tài liệu runtime JavaScript phía máy chủ, Event Loop và Streams.',
-        thumbnail: ''
-      },
-      {
-        title: 'Render Cloud Application Hosting',
-        url: 'https://render.com/docs',
-        description: 'Dịch vụ lưu trữ máy chủ REST API, Web Services và Static Sites tự động CI/CD.',
-        thumbnail: ''
-      }
-    ]
-  },
-  {
-    id: 'web-standards-03',
-    title: 'Web Standards & Typography',
-    tags: ['web-standards', 'typography', 'a11y'],
-    color: 'amber',
-    createdAt: 1740172800000,
-    links: [
-      {
-        title: 'MDN Web Docs — W3C Specs',
-        url: 'https://developer.mozilla.org',
-        description: 'Kho tài liệu nguồn mở tiêu chuẩn về HTML5, CSS3, DOM và JavaScript APIs.',
-        thumbnail: ''
-      },
-      {
-        title: 'WCAG 2.2 Guidelines Quick Reference',
-        url: 'https://www.w3.org/WAI/WCAG22/quickref/',
-        description: 'Bộ quy tắc tiếp cận chuẩn quốc tế: độ tương phản màu sắc, bàn phím và ARIA.',
-        thumbnail: ''
-      },
-      {
-        title: 'Segoe UI Font & Typography Guidance',
-        url: 'https://learn.microsoft.com/en-us/windows/apps/design/style/typography',
-        description: 'Quy chuẩn typographic hierarchy và scale kích thước hiển thị của Microsoft.',
-        thumbnail: ''
-      }
-    ]
-  },
-  {
-    id: 'web-devtools-04',
-    title: 'Developer Productivity & Git',
-    tags: ['tools', 'git', 'productivity'],
-    color: 'teal',
-    createdAt: 1740259200000,
-    links: [
-      {
-        title: 'GitHub Docs & REST API',
-        url: 'https://docs.github.com/en/rest',
-        description: 'Tích hợp kho mã nguồn, Git automation, GitHub Actions workflows và Webhooks.',
-        thumbnail: ''
-      },
-      {
-        title: 'VS Code Web & Workspaces',
-        url: 'https://code.visualstudio.com/docs',
-        description: 'Trình biên tập mã nguồn hiện đại hỗ trợ TypeScript, DevContainers và Plugins.',
-        thumbnail: ''
-      },
-      {
-        title: 'Can I Use — Browser Support Tables',
-        url: 'https://caniuse.com',
-        description: 'Tra cứu mức độ tương thích trình duyệt cho các tính năng HTML, CSS và Web API.',
-        thumbnail: ''
-      }
-    ]
-  },
-  {
-    id: 'web-security-05',
-    title: 'Security, CORS & Auth',
-    tags: ['security', 'cors', 'auth', 'jwt'],
-    color: 'coral',
-    createdAt: 1740345600000,
-    links: [
-      {
-        title: 'MDN Cross-Origin Resource Sharing (CORS)',
-        url: 'https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS',
-        description: 'Cơ chế trình duyệt cho phép hoặc hạn chế truy vấn tài nguyên chéo domain.',
-        thumbnail: ''
-      },
-      {
-        title: 'OWASP Top 10 Security Principles',
-        url: 'https://owasp.org/www-project-top-ten/',
-        description: 'Bảo mật ứng dụng web, chống SSRF, CSRF, Injection và kiểm soát quyền truy cập.',
-        thumbnail: ''
-      },
-      {
-        title: 'JWT.io — Token Debugger',
-        url: 'https://jwt.io',
-        description: 'Giải mã và kiểm tra tính hợp lệ của JSON Web Tokens theo chuẩn RFC 7519.',
-        thumbnail: ''
-      }
-    ]
-  },
-  {
-    id: 'web-ai-06',
-    title: 'AI Models & Assistant APIs',
-    tags: ['ai', 'llm', 'deepmind'],
-    color: 'blue',
-    createdAt: 1740432000000,
-    links: [
-      {
-        title: 'Google DeepMind Research',
-        url: 'https://deepmind.google/technologies/gemini/',
-        description: 'Mô hình trí tuệ nhân tạo thế hệ mới với khả năng suy luận logic và xử lý mã.',
-        thumbnail: ''
-      },
-      {
-        title: 'Google AI Studio & Gemini API',
-        url: 'https://aistudio.google.com',
-        description: 'Cổng lập trình viên tích hợp các mô hình Gemini với context window cực lớn.',
-        thumbnail: ''
-      },
-      {
-        title: 'Hugging Face Open Models',
-        url: 'https://huggingface.co/models',
-        description: 'Kho lưu trữ và cộng đồng chia sẻ mô hình học máy mã nguồn mở lớn nhất thế giới.',
-        thumbnail: ''
-      }
-    ]
-  },
-  {
-    id: 'web-testing-07',
-    title: 'Testing, Quality & CI/CD',
-    tags: ['testing', 'playwright', 'qa'],
-    color: 'emerald',
-    createdAt: 1740518400000,
-    links: [
-      {
-        title: 'Playwright End-to-End Testing',
-        url: 'https://playwright.dev',
-        description: 'Kiểm thử tự động đa trình duyệt Chromium, Firefox, WebKit tốc độ cao và ổn định.',
-        thumbnail: ''
-      },
-      {
-        title: 'Vitest Unit Test Framework',
-        url: 'https://vitest.dev',
-        description: 'Khung kiểm thử đơn vị cực nhanh dựa trên Vite cho hệ sinh thái JavaScript.',
-        thumbnail: ''
-      },
-      {
-        title: 'Lighthouse Performance Audit',
-        url: 'https://developer.chrome.com/docs/lighthouse/overview/',
-        description: 'Đo lường chỉ số Core Web Vitals (LCP, FID, CLS, INP) và tối ưu SEO.',
-        thumbnail: ''
-      }
-    ]
-  },
-  {
-    id: 'web-specs-08',
-    title: 'REST Architecture & HTTP Standards',
-    tags: ['api', 'http', 'architecture'],
-    color: 'teal',
-    createdAt: 1740604800000,
-    links: [
-      {
-        title: 'HTTP Status Code Reference',
-        url: 'https://httpstatuses.com',
-        description: 'Ý nghĩa chuẩn RFC cho từng mã trạng thái 200, 201, 400, 401, 403, 404, 500, 503.',
-        thumbnail: ''
-      },
-      {
-        title: 'REST API Tutorial & Best Practices',
-        url: 'https://restfulapi.net',
-        description: 'Nguyên lý kiến trúc RESTful, stateless, cacheability và idempotent methods.',
-        thumbnail: ''
-      },
-      {
-        title: 'OpenAPI Specification (OAS)',
-        url: 'https://spec.openapis.org/oas/latest.html',
-        description: 'Định dạng mô tả chuẩn hóa giao tiếp RESTful API cho con người và máy móc.',
-        thumbnail: ''
-      }
-    ]
-  },
-  {
-    id: 'web-styling-09',
-    title: 'Design Systems & Tokens',
-    tags: ['design', 'css', 'tokens'],
-    color: 'amber',
-    createdAt: 1740691200000,
-    links: [
-      {
-        title: 'W3C Design Tokens Community Group',
-        url: 'https://design-tokens.github.io/community-group/format/',
-        description: 'Đặc tả định dạng trao đổi design tokens xuyên suốt giữa Figma và Codebase.',
-        thumbnail: ''
-      },
-      {
-        title: 'CSS Custom Properties (Variables)',
-        url: 'https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties',
-        description: 'Tận dụng biến CSS để quản lý theme, màu sắc và typography linh hoạt.',
-        thumbnail: ''
-      },
-      {
-        title: 'Modern CSS Reset by Andy Bell',
-        url: 'https://piccalil.li/blog/a-modern-css-reset/',
-        description: 'Quy chuẩn reset CSS hiện đại, tối giản và tôn trọng trải nghiệm người dùng.',
-        thumbnail: ''
-      }
-    ]
-  },
-  {
-    id: 'web-typescript-10',
-    title: 'TypeScript & Type Safety',
-    tags: ['typescript', 'frontend', 'javascript'],
-    color: 'blue',
-    createdAt: 1740777600000,
-    links: [
-      {
-        title: 'TypeScript Official Handbook',
-        url: 'https://www.typescriptlang.org/docs/handbook/intro.html',
-        description: 'Cẩm nang hệ thống kiểu tĩnh, generics, utility types và type narrowing.',
-        thumbnail: ''
-      },
-      {
-        title: 'Total TypeScript Tips',
-        url: 'https://www.totaltypescript.com/tutorials',
-        description: 'Các bài hướng dẫn thực chiến về TypeScript trong các dự án web quy mô lớn.',
-        thumbnail: ''
-      },
-      {
-        title: 'Zod — TypeScript-first Schema Validation',
-        url: 'https://zod.dev',
-        description: 'Thư viện kiểm tra kiểu dữ liệu thời gian thực và suy luận kiểu tĩnh tự động.',
-        thumbnail: ''
-      }
-    ]
-  },
-  {
-    id: 'web-python-11',
-    title: 'Python Ecosystem & Fast Microservices',
-    tags: ['python', 'backend', 'api'],
-    color: 'teal',
-    createdAt: 1740864000000,
-    links: [
-      {
-        title: 'FastAPI Framework Documentation',
-        url: 'https://fastapi.tiangolo.com',
-        description: 'Khung phát triển RESTful API hiệu năng cao dựa trên Starlette và Pydantic.',
-        thumbnail: ''
-      },
-      {
-        title: 'Python 3 Standard Library',
-        url: 'https://docs.python.org/3/library/',
-        description: 'Tài liệu các module chuẩn trong Python phục vụ xử lý chuỗi, mạng và file I/O.',
-        thumbnail: ''
-      },
-      {
-        title: 'Requests: HTTP for Humans',
-        url: 'https://requests.readthedocs.io',
-        description: 'Thư viện client HTTP phổ biến nhất cho Python với API thanh lịch và trực quan.',
-        thumbnail: ''
-      }
-    ]
-  },
-  {
-    id: 'web-resources-12',
-    title: 'Community, Open Source & News',
-    tags: ['community', 'news', 'opensource'],
-    color: 'coral',
-    createdAt: 1740950400000,
-    links: [
-      {
-        title: 'Hacker News (Y Combinator)',
-        url: 'https://news.ycombinator.com',
-        description: 'Tin tức công nghệ, kỹ thuật phần mềm và hệ sinh thái khởi nghiệp toàn cầu.',
-        thumbnail: ''
-      },
-      {
-        title: 'Dev.to Community Platform',
-        url: 'https://dev.to',
-        description: 'Cộng đồng lập trình viên chia sẻ kinh nghiệm, bài viết kỹ thuật và mẹo hay.',
-        thumbnail: ''
-      },
-      {
-        title: 'GitHub Explore & Trending',
-        url: 'https://github.com/explore',
-        description: 'Khám phá các dự án mã nguồn mở đang được quan tâm nhất trong tuần.',
-        thumbnail: ''
-      }
-    ]
-  }
-];
 
 /**
  * Trạng thái trung tâm của ứng dụng (State Management)
@@ -351,11 +13,8 @@ const SAMPLE_WEBS = [
 const state = {
   cards: [],
   rows: [],
-  filteredRows: [],
   isLoading: false,
   error: null,
-  dataSource: 'live', // 'live' | 'sample'
-  lastLiveError: null,
   lastUpdatedAt: null,
   searchQuery: '',
   selectedColor: 'ALL',
@@ -384,7 +43,6 @@ function cacheElements() {
   elements.tagFilter = document.getElementById('tagFilter');
   elements.pageSizeSelect = document.getElementById('pageSizeSelect');
   elements.clearFiltersButton = document.getElementById('clearFiltersButton');
-  elements.loadSampleButton = document.getElementById('loadSampleButton');
   elements.refreshButton = document.getElementById('refreshButton');
   elements.webTableBody = document.getElementById('webTableBody');
   elements.filterForm = document.getElementById('filterForm');
@@ -394,6 +52,10 @@ function cacheElements() {
   elements.pageIndicator = document.getElementById('pageIndicator');
   elements.nextPageBtn = document.getElementById('nextPageBtn');
   elements.lastPageBtn = document.getElementById('lastPageBtn');
+
+  // Tabs navigation elements
+  elements.tabButtons = Array.from(document.querySelectorAll('.f-tabs-nav .f-tab'));
+  elements.tabPanels = Array.from(document.querySelectorAll('.f-main .f-tabpanel'));
 }
 
 /**
@@ -609,13 +271,8 @@ function renderStats(filteredRows) {
     elements.filteredCountNote.textContent = '1 dòng = 1 liên kết web';
   }
 
-  if (state.dataSource === 'sample') {
-    elements.sourceBadge.textContent = 'Nguồn: Dữ liệu mẫu API.md';
-    elements.sourceBadge.className = 'f-badge f-badge-sample';
-  } else {
-    elements.sourceBadge.textContent = 'Nguồn: Live GET /api/webs';
-    elements.sourceBadge.className = 'f-badge f-badge-brand';
-  }
+  elements.sourceBadge.textContent = 'Nguồn: Live GET /api/webs';
+  elements.sourceBadge.className = 'f-badge f-badge-brand';
 }
 
 /**
@@ -626,15 +283,6 @@ function renderConnectionCard() {
     elements.connectionCard.setAttribute('data-status', 'warn');
     elements.connectionText.textContent = 'Đang gọi API…';
     elements.updatedNote.textContent = 'Đang kết nối tới máy chủ Render';
-    return;
-  }
-
-  if (state.dataSource === 'sample') {
-    elements.connectionCard.setAttribute('data-status', 'warn');
-    elements.connectionText.textContent = state.lastLiveError
-      ? 'Mẫu API.md (CORS/Lỗi)'
-      : 'Đang xem mẫu API.md';
-    elements.updatedNote.textContent = 'Bấm "↻ Làm mới API" để gọi lại';
     return;
   }
 
@@ -655,7 +303,7 @@ function renderConnectionCard() {
 }
 
 /**
- * Hiển thị Fluent InfoBar: Hướng dẫn Cách 2 & CORS
+ * Hiển thị Fluent InfoBar: Hướng dẫn Cách 2 & CORS khi xảy ra lỗi
  */
 function renderNoticeBar() {
   if (state.isLoading) {
@@ -663,8 +311,8 @@ function renderNoticeBar() {
     return;
   }
 
-  // Khi gọi Live API gặp lỗi (chặn CORS hoặc mạng)
-  if (state.error && state.dataSource === 'live') {
+  // Khi gọi Live API gặp lỗi (chặn CORS hoặc lỗi mạng)
+  if (state.error) {
     elements.noticeArea.innerHTML = `
       <div class="f-infobar f-infobar-warning" role="alert">
         <div class="f-infobar-body">
@@ -677,40 +325,12 @@ function renderNoticeBar() {
           <p class="f-infobar-desc">
             Bạn đang chạy <strong>Cách 2</strong> (gọi trực tiếp <code>${escapeHtml(API_BASE + WEBS_ENDPOINT)}</code> từ trình duyệt). Máy chủ Render hiện chưa trả về header <code>Access-Control-Allow-Origin: *</code>.
             <br />
-            <strong>Khắc phục:</strong> Vui lòng bật extension CORS (như <em>Allow CORS: Access-Control-Allow-Origin</em>) trên trình duyệt hoặc bấm <strong>"Dữ liệu mẫu API.md"</strong> bên phải để trải nghiệm đầy đủ giao diện và tính năng phân trang ngay lập tức.
-          </p>
-        </div>
-        <div class="f-infobar-actions">
-          <button type="button" class="f-btn f-btn-primary" data-action="load-sample">
-            Dữ liệu mẫu API.md
-          </button>
-          <button type="button" class="f-btn f-btn-secondary" data-action="retry-live">
-            ↻ Thử lại API
-          </button>
-        </div>
-      </div>
-    `;
-    return;
-  }
-
-  // Khi đang hiển thị dữ liệu mẫu
-  if (state.dataSource === 'sample') {
-    elements.noticeArea.innerHTML = `
-      <div class="f-infobar f-infobar-info" role="status">
-        <div class="f-infobar-body">
-          <p class="f-infobar-title">
-            <svg width="18" height="18" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
-            </svg>
-            Đang xem bộ dữ liệu mẫu chuẩn API.md (Mục 3.4)
-          </p>
-          <p class="f-infobar-desc">
-            Bảng bên dưới đang hiển thị <strong>${state.cards.length} nhóm WebCards</strong> với tổng cộng <strong>${state.rows.length} liên kết con</strong>. Bạn có thể thử nghiệm phân trang (12, 36, 120, All), tìm kiếm từ khóa và lọc chủ đề. Bấm <strong>"↻ Thử gọi Live API"</strong> khi đã sẵn sàng kết nối lại máy chủ.
+            <strong>Khắc phục:</strong> Vui lòng bật extension CORS (như <em>Allow CORS: Access-Control-Allow-Origin</em>) trên trình duyệt rồi bấm nút <strong>"↻ Thử lại kết nối"</strong> bên cạnh.
           </p>
         </div>
         <div class="f-infobar-actions">
           <button type="button" class="f-btn f-btn-primary" data-action="retry-live">
-            ↻ Thử gọi Live API
+            ↻ Thử lại kết nối
           </button>
         </div>
       </div>
@@ -718,7 +338,7 @@ function renderNoticeBar() {
     return;
   }
 
-  // Live API 200 OK thành công
+  // Khi tải thành công
   elements.noticeArea.innerHTML = '';
 }
 
@@ -761,21 +381,18 @@ function renderTableAndPagination(filteredRows) {
     return;
   }
 
-  // Trường hợp gặp lỗi Live API và chưa nạp mẫu
-  if (state.error && state.dataSource === 'live') {
+  // Trường hợp gặp lỗi Live API
+  if (state.error) {
     elements.webTableBody.innerHTML = `
       <tr class="f-state-row">
         <td colspan="8">
           <div class="f-state-box">
             <p class="f-state-title">Chưa kết nối được với GET /api/webs</p>
             <p class="f-state-sub">
-              Trình duyệt đang chặn CORS khi gọi từ origin hiện tại. Bạn có thể bấm nút bên dưới để mở dữ liệu mẫu API.md ngay.
+              Trình duyệt đang chặn CORS khi gọi từ origin hiện tại. Vui lòng bật extension CORS trên trình duyệt và bấm thử lại.
             </p>
             <div class="f-state-actions">
-              <button type="button" class="f-btn f-btn-primary" data-action="load-sample">
-                Dữ liệu mẫu API.md
-              </button>
-              <button type="button" class="f-btn f-btn-secondary" data-action="retry-live">
+              <button type="button" class="f-btn f-btn-primary" data-action="retry-live">
                 ↻ Thử gọi lại API
               </button>
             </div>
@@ -801,8 +418,8 @@ function renderTableAndPagination(filteredRows) {
             <p class="f-state-title">Chưa có liên kết web nào</p>
             <p class="f-state-sub">Endpoint GET /api/webs trả về danh sách rỗng [].</p>
             <div class="f-state-actions">
-              <button type="button" class="f-btn f-btn-primary" data-action="load-sample">
-                Dữ liệu mẫu API.md
+              <button type="button" class="f-btn f-btn-primary" data-action="retry-live">
+                ↻ Làm mới dữ liệu
               </button>
             </div>
           </div>
@@ -986,7 +603,6 @@ function renderAll() {
 async function fetchWebLinksFromApi() {
   state.isLoading = true;
   state.error = null;
-  state.dataSource = 'live';
   elements.refreshButton.disabled = true;
   renderAll();
 
@@ -1014,14 +630,13 @@ async function fetchWebLinksFromApi() {
 
     state.cards = payload;
     state.rows = flattenWebCards(payload);
-    state.lastLiveError = null;
+    state.error = null;
     state.lastUpdatedAt = new Date().toLocaleTimeString('vi-VN');
     state.currentPage = 1;
     populateFilterOptions();
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Lỗi kết nối mạng';
     state.error = message;
-    state.lastLiveError = message;
     state.cards = [];
     state.rows = [];
     state.lastUpdatedAt = new Date().toLocaleTimeString('vi-VN');
@@ -1031,20 +646,6 @@ async function fetchWebLinksFromApi() {
     elements.refreshButton.disabled = false;
     renderAll();
   }
-}
-
-/**
- * Nạp dữ liệu mẫu từ API.md khi người dùng yêu cầu hoặc khi gặp lỗi CORS
- */
-function loadSampleData() {
-  state.isLoading = false;
-  state.error = null;
-  state.dataSource = 'sample';
-  state.cards = SAMPLE_WEBS;
-  state.rows = flattenWebCards(SAMPLE_WEBS);
-  state.currentPage = 1;
-  populateFilterOptions();
-  renderAll();
 }
 
 /**
@@ -1062,9 +663,85 @@ function resetFilters() {
 }
 
 /**
+ * Khởi tạo điều khiển Tabs Navigation (MS365 Apps, Google Apps, Check Tools, ...)
+ * Hỗ trợ chuyển đổi tab linh hoạt và điều hướng bàn phím chuẩn WAI-ARIA
+ */
+function initTabs() {
+  const tabs = elements.tabButtons && elements.tabButtons.length > 0
+    ? elements.tabButtons
+    : Array.from(document.querySelectorAll('.f-tabs-nav .f-tab'));
+  const panels = elements.tabPanels && elements.tabPanels.length > 0
+    ? elements.tabPanels
+    : Array.from(document.querySelectorAll('.f-main .f-tabpanel'));
+
+  if (!tabs.length || !panels.length) {
+    return;
+  }
+
+  function switchTab(selectedTab, shouldFocus = false) {
+    const targetPanelId = selectedTab.getAttribute('aria-controls');
+
+    tabs.forEach((tab) => {
+      const isSelected = tab === selectedTab;
+      tab.classList.toggle('active', isSelected);
+      tab.setAttribute('aria-selected', isSelected ? 'true' : 'false');
+      tab.setAttribute('tabindex', isSelected ? '0' : '-1');
+      if (isSelected && shouldFocus) {
+        tab.focus();
+      }
+    });
+
+    panels.forEach((panel) => {
+      if (panel.id === targetPanelId) {
+        panel.removeAttribute('hidden');
+      } else {
+        panel.setAttribute('hidden', '');
+      }
+    });
+  }
+
+  tabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => {
+      switchTab(tab);
+    });
+
+    tab.addEventListener('keydown', (e) => {
+      let targetIndex = null;
+      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        targetIndex = (index + 1) % tabs.length;
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        targetIndex = (index - 1 + tabs.length) % tabs.length;
+      } else if (e.key === 'Home') {
+        targetIndex = 0;
+      } else if (e.key === 'End') {
+        targetIndex = tabs.length - 1;
+      }
+
+      if (targetIndex !== null) {
+        e.preventDefault();
+        switchTab(tabs[targetIndex], true);
+      }
+    });
+  });
+}
+
+/**
  * Lắng nghe tất cả các sự kiện tương tác người dùng
  */
 function bindEvents() {
+  initTabs();
+
+  // Đảm bảo click vào nút bọc cũng kích hoạt thẻ liên kết bên trong
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('.f-btn-empty');
+    if (btn && !e.target.closest('a')) {
+      const link = btn.querySelector('a');
+      if (link) {
+        link.click();
+      }
+    }
+  });
+
   elements.filterForm.addEventListener('submit', (e) => {
     e.preventDefault();
   });
@@ -1101,11 +778,6 @@ function bindEvents() {
   // Xóa bộ lọc
   elements.clearFiltersButton.addEventListener('click', () => {
     resetFilters();
-  });
-
-  // Nạp dữ liệu mẫu từ header
-  elements.loadSampleButton.addEventListener('click', () => {
-    loadSampleData();
   });
 
   // Làm mới API từ header
@@ -1156,9 +828,7 @@ function bindEvents() {
     if (!actionBtn) return;
 
     const action = actionBtn.getAttribute('data-action');
-    if (action === 'load-sample') {
-      loadSampleData();
-    } else if (action === 'retry-live') {
+    if (action === 'retry-live') {
       fetchWebLinksFromApi();
     } else if (action === 'clear-filters') {
       resetFilters();
